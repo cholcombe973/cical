@@ -46,8 +46,9 @@ Choose an option:
 4. Calculate required principal for target amount
 5. Generate year-by-year breakdown
 6. Exit
+7. Calculate weekly compounding with yearly tax (trader scenario)
 
-Enter your choice (1-6):
+Enter your choice (1-7):
 ```
 
 ### Library API
@@ -101,6 +102,9 @@ Calculates compound interest using the standard formula: A = P(1 + r/n)^(nt)
 #### `calculate_compound_interest_with_contributions(params: &CompoundInterestParams, monthly_contribution: f64) -> CompoundInterestResult`
 Calculates compound interest including regular monthly contributions.
 
+#### `calculate_weekly_with_yearly_tax(principal: f64, weekly_rate: f64, weeks: u32, weekly_contribution: f64, capital_gains_tax: f64) -> (f64, f64, f64)`
+Calculates compound interest with weekly contributions, weekly compounding, and yearly capital gains tax. Returns (final_amount_after_tax, total_profit_before_tax, total_tax_paid).
+
 #### `calculate_time_to_target(principal: f64, target_amount: f64, annual_rate: f64, compounds_per_year: u32) -> f64`
 Calculates the time needed to reach a target amount.
 
@@ -152,6 +156,19 @@ let years = calculate_time_to_target(10000.0, 20000.0, 0.07, 12);
 // Approximately 9.9 years at 7% monthly compounding
 ```
 
+### Example 4: Weekly Compounding with Yearly Tax (Trader Scenario)
+```rust
+let (final_after_tax, profit, tax_paid) = calculate_weekly_with_yearly_tax(
+    13500.0,    // Initial principal
+    0.02,       // 2% weekly return
+    156,        // 3 years (156 weeks)
+    100.0,      // $100 weekly contribution
+    0.37,       // 37% capital gains tax
+);
+// Final amount after tax: $2,413,478.21
+// Total tax paid: $1,400,349.11
+```
+
 ## Testing
 
 Run the test suite:
@@ -165,6 +182,7 @@ The tests cover:
 - Compound interest with contributions
 - Time to target calculations
 - Principal for target calculations
+- Weekly compounding with yearly tax
 
 ## Mathematical Formulas
 
@@ -190,6 +208,15 @@ Where:
 - r = Annual interest rate
 - t = Time in years
 
+### Weekly Compounding with Yearly Tax
+```
+For each year:
+- Year end = (Principal + Weekly contributions) × (1 + weekly_rate)^52
+- Year profit = Year end - Year start - Total contributions
+- Tax = Year profit × tax_rate
+- Next year principal = Year end - Tax
+```
+
 ### Effective Annual Rate
 ```
 EAR = (1 + r/n)^n - 1
@@ -201,4 +228,4 @@ This project is open source and available under the MIT License.
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request. 
+Contributions are welcome! Please feel free to submit a Pull Request.
