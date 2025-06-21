@@ -1,0 +1,15 @@
+[package]
+name = "cical"
+version = "0.1.0"
+edition = "2021"
+description = "A comprehensive compound interest calculator library and CLI for Rust, supporting advanced scenarios including weekly compounding, contributions, and capital gains tax."
+license = "MIT"
+repository = "https://github.com/sdb-replica/cical"
+homepage = "https://github.com/sdb-replica/cical"
+documentation = "https://docs.rs/cical"
+readme = "README.md"
+keywords = ["finance", "compound-interest", "calculator", "tax", "cli"]
+categories = ["finance", "command-line-utilities"]
+authors = ["Sai <sdb-replica@users.noreply.github.com>"]
+
+[dependencies]
