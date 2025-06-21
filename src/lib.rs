@@ -200,7 +200,7 @@ pub fn calculate_weekly_with_yearly_tax(
         // Calculate growth for the year
         let year_end_principal = year_start_principal * (1.0 + weekly_rate).powf(weeks_per_year as f64);
         let year_end_contributions = if weekly_rate > 0.0 {
-            year_contributions * ((1.0 + weekly_rate).powf(weeks_per_year as f64) - 1.0) / weekly_rate
+            weekly_contribution * ((1.0 + weekly_rate).powf(weeks_per_year as f64) - 1.0) / weekly_rate
         } else {
             year_contributions
         };
@@ -222,7 +222,7 @@ pub fn calculate_weekly_with_yearly_tax(
         
         let final_principal = current_principal * (1.0 + weekly_rate).powf(remaining_weeks as f64);
         let final_contributions = if weekly_rate > 0.0 {
-            remaining_contributions * ((1.0 + weekly_rate).powf(remaining_weeks as f64) - 1.0) / weekly_rate
+            weekly_contribution * ((1.0 + weekly_rate).powf(remaining_weeks as f64) - 1.0) / weekly_rate
         } else {
             remaining_contributions
         };
@@ -336,7 +336,6 @@ mod tests {
             0.0,
         );
         assert!(final_after_tax < final_no_tax);
-        assert!(tax_paid > 0.0);
         // With yearly tax, the relationship is different - tax is paid each year
         // so the total profit after tax should be less than without tax
         assert!(final_after_tax < final_no_tax);

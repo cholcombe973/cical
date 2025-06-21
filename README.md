@@ -165,8 +165,8 @@ let (final_after_tax, profit, tax_paid) = calculate_weekly_with_yearly_tax(
     100.0,      // $100 weekly contribution
     0.37,       // 37% capital gains tax
 );
-// Final amount after tax: $2,413,478.21
-// Total tax paid: $1,400,349.11
+// Final amount after tax: $189,631.61
+// Total tax paid: $94,280.47
 ```
 
 ## Testing
@@ -211,8 +211,8 @@ Where:
 ### Weekly Compounding with Yearly Tax
 ```
 For each year:
-- Year end = (Principal + Weekly contributions) × (1 + weekly_rate)^52
-- Year profit = Year end - Year start - Total contributions
+- Year end = (Principal × (1 + weekly_rate)^52) + (Future value of weekly contributions)
+- Year profit = Year end - Year start - Total contributions for the year
 - Tax = Year profit × tax_rate
 - Next year principal = Year end - Tax
 ```
