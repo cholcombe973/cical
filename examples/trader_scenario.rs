@@ -46,7 +46,7 @@ fn main() {
     println!();
     
     // Comparison: what if there was no tax?
-    let (final_no_tax, profit_no_tax, _) = calculate_weekly_with_yearly_tax(
+    let (final_no_tax, _profit_no_tax, _) = calculate_weekly_with_yearly_tax(
         principal,
         weekly_rate,
         weeks,

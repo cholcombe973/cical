@@ -171,7 +171,7 @@ pub fn calculate_weekly_with_yearly_tax(
     let mut total_contributions = 0.0;
     
     // Process complete years
-    for year in 0..years {
+    for _year in 0..years {
         let year_start_principal = current_principal;
         let year_contributions = weekly_contribution * weeks_per_year as f64;
         total_contributions += year_contributions;
