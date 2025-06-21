@@ -140,7 +140,28 @@ pub fn generate_breakdown(params: &CompoundInterestParams) -> HashMap<u32, Compo
 
 /// Format currency values for display
 pub fn format_currency(amount: f64) -> String {
-    format!("${:.2}", amount)
+    // Handle negative numbers
+    let is_negative = amount < 0.0;
+    let abs_amount = amount.abs();
+    
+    // Format with commas for thousands
+    let formatted = format!("{:.2}", abs_amount);
+    let parts: Vec<&str> = formatted.split('.').collect();
+    let integer_part = parts[0];
+    let decimal_part = if parts.len() > 1 { parts[1] } else { "00" };
+    
+    // Add commas for thousands
+    let mut result = String::new();
+    for (i, ch) in integer_part.chars().rev().enumerate() {
+        if i > 0 && i % 3 == 0 {
+            result.push(',');
+        }
+        result.push(ch);
+    }
+    let integer_with_commas: String = result.chars().rev().collect();
+    
+    let sign = if is_negative { "-" } else { "" };
+    format!("${}{}.{}", sign, integer_with_commas, decimal_part)
 }
 
 /// Format percentage values for display
